@@ -1,0 +1,115 @@
+{
+  "3": {
+    "title": "Week 03 Menu",
+    "dateRange": "26–30 January",
+    "days": {
+      "Monday": {
+        "Meat": {
+          "name": "Braised meatballs",
+          "description": "Served in a rich marinara sauce with basmati rice, roasted vegetables, and fried okra."
+        },
+        "Veg": {
+          "name": "Braised veg meatballs",
+          "description": "Served in a rich marinara sauce with basmati rice, roasted vegetables, and fried okra."
+        }
+      },
+      "Tuesday": {
+        "Meat": {
+          "name": "Grilled chicken & bacon baked mac & cheese",
+          "description": "Served with garlic flatbread."
+        },
+        "Veg": {
+          "name": "Grilled veg & sun-dried tomato baked mac & cheese",
+          "description": "Served with garlic flatbread."
+        }
+      },
+      "Wednesday": {
+        "Meat": {
+          "name": "Fire-roasted pork, sage & apple roll",
+          "description": "Served with mango salsa, steamed vegetables, and baked baby potatoes."
+        },
+        "Veg": {
+          "name": "Fire-roasted veg, sage & apple roll",
+          "description": "Served with mango salsa, steamed vegetables, and baked baby potatoes."
+        }
+      },
+      "Thursday": {
+        "Meat": {
+          "name": "Beef Wellington cups",
+          "description": "With mushroom, creamed spinach & gravy, served with sweet potato mash."
+        },
+        "Veg": {
+          "name": "Veg Wellington cups",
+          "description": "With mushroom, creamed spinach & gravy, served with sweet potato mash."
+        }
+      },
+      "Friday": {
+        "Meat": {
+          "name": "Fried chicken burger",
+          "description": "With kimchi mayo, served with fries."
+        },
+        "Veg": {
+          "name": "Fried veg burger",
+          "description": "With kimchi mayo, served with fries."
+        }
+      }
+    }
+  },
+
+  "4": {
+    "title": "Week 04 Menu",
+    "dateRange": "02–06 February",
+    "days": {
+      "Monday": {
+        "Meat": {
+          "name": "Seared chicken strips",
+          "description": "With sweet & sour sauce, egg fried rice, and vegetable of the day."
+        },
+        "Veg": {
+          "name": "Butternut paneer",
+          "description": "With sweet & sour sauce, egg fried rice, and vegetable of the day."
+        }
+      },
+      "Tuesday": {
+        "Meat": {
+          "name": "Slow-braised beef & red wine stew",
+          "description": "Served with mashed potatoes and butternut bhaji."
+        },
+        "Veg": {
+          "name": "Chickpea, cauliflower & kale red wine stew",
+          "description": "Served with mashed potatoes and butternut bhaji."
+        }
+      },
+      "Wednesday": {
+        "Meat": {
+          "name": "Chicken, mushroom & vegetable pot pie",
+          "description": "Served with cauliflower popcorn."
+        },
+        "Veg": {
+          "name": "Zucchini, mushroom & vegetable pot pie",
+          "description": "Served with cauliflower popcorn."
+        }
+      },
+      "Thursday": {
+        "Meat": {
+          "name": "Lamb & beef roll",
+          "description": "Roasted over vegetables and potatoes, covered in rosemary gravy and smoked paprika potato skins."
+        },
+        "Veg": {
+          "name": "Butternut & spinach roll",
+          "description": "Roasted over vegetables and potatoes, covered in rosemary gravy and smoked paprika potato skins."
+        }
+      },
+      "Friday": {
+        "Meat": {
+          "name": "Grilled pork chops",
+          "description": "With herb rice and vegetable bhaji, served with creamy caramelised onion sauce."
+        },
+        "Veg": {
+          "name": "Grilled cauliflower chop",
+          "description": "With herb rice and vegetable bhaji, served with creamy caramelised onion sauce."
+        }
+      }
+    }
+  }
+}
