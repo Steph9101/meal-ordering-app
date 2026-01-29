@@ -11,15 +11,16 @@ import {
   useWindowDimensions,
   Alert,
   Linking,
+  Switch,
 } from "react-native";
 
 /**
  * ✅ This version:
- * - Loads menus from menus.json (web fetch + mobile assets fallback)
- * - Fixes “old menu on startup” by defaulting to first available week in menus.json
- * - Mobile-friendly meal rows (stepper moves below text on narrow screens)
- * - Restores ORDER PREVIEW + WHATSAPP BUTTON
- * - Summary/WhatsApp is ONLY BELOW the form (not near the top)
+ * - Biweekly toggle is a proper Switch (Yes ↔ No)
+ * - Keeps meal descriptions in the main form (for choosing)
+ * - WhatsApp message is SIMPLIFIED (Mon: x2 Meat ...)
+ * - Less scrolling: descriptions are collapsed by default (tap More/Less)
+ * - Order Summary box (on-screen) stays detailed; WhatsApp stays simple
  *
  * IMPORTANT:
  * - Web (Netlify): put menus.json in /public/menus.json
@@ -40,6 +41,14 @@ type MenusByWeek = Record<string, WeeklyMenu>;
 
 const DAYS: DayName[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const MEALS: MealType[] = ["Meat", "Veg", "Low Carb"];
+
+const DAY_SHORT: Record<DayName, string> = {
+  Monday: "Mon",
+  Tuesday: "Tue",
+  Wednesday: "Wed",
+  Thursday: "Thu",
+  Friday: "Fri",
+};
 
 const PRICE_MEAT = 90;
 const PRICE_VEG = 90;
@@ -102,6 +111,7 @@ export default function App() {
   const [name, setName] = useState("");
   const [notes, setNotes] = useState("");
 
+  // ✅ Switch-driven biweekly
   const [useWeekB, setUseWeekB] = useState(false);
 
   const [qtyA, setQtyA] = useState<QtyByDay>(() => emptyWeekQuantities());
@@ -112,6 +122,10 @@ export default function App() {
 
   const [weekA, setWeekA] = useState<number>(1);
   const [weekB, setWeekB] = useState<number>(2);
+
+  // ✅ Reduce scrolling: per-meal “More/Less” state (collapsed by default)
+  // key format: `${which}-${weekNumber}-${day}-${meal}`
+  const [expandedDesc, setExpandedDesc] = useState<Record<string, boolean>>({});
 
   // -------- Load menus.json --------
   useEffect(() => {
@@ -194,13 +208,18 @@ export default function App() {
     return fromJson ? (fromJson as WeeklyMenu) : null;
   }
 
-  function getRowText(menu: WeeklyMenu | null, day: DayName, meal: MealType) {
+  // Returns {name, description} (not pre-joined) to better control truncation
+  function getMealParts(menu: WeeklyMenu | null, day: DayName, meal: MealType) {
     const dayMenu = menu?.days?.[day];
-    if (meal === "Low Carb") return LOW_CARB_NOTE;
+
+    if (meal === "Low Carb") {
+      return { name: "Low Carb", description: LOW_CARB_NOTE };
+    }
 
     const item = meal === "Meat" ? dayMenu?.Meat : dayMenu?.Veg;
-    if (!item) return "Menu item coming soon.";
-    return `${item.name} — ${item.description}`;
+    if (!item) return { name: "Menu item coming soon.", description: "" };
+
+    return { name: item.name, description: item.description };
   }
 
   function clampWeek(n: number) {
@@ -271,19 +290,16 @@ export default function App() {
   const totalMeals = weekATotalMeals + weekBTotalMeals;
   const totalCost = weekATotalCost + weekBTotalCost;
 
-  // ---------- ORDER SUMMARY (below form) ----------
+  // ---------- On-screen summary (detailed) ----------
   const hasAnySelections = totalMeals > 0;
 
-  function buildSummaryLinesForWeek(
-    which: "A" | "B",
-    weekNumber: number,
-    qty: QtyByDay
-  ) {
+  function buildDetailedLinesForWeek(weekNumber: number, qty: QtyByDay) {
     const menu = getMenuForWeek(weekNumber);
     const lines: string[] = [];
 
-    // Header
-    lines.push(`Week ${pad2(weekNumber)}${menu?.dateRange ? ` (${menu.dateRange})` : ""}`);
+    lines.push(
+      `Week ${pad2(weekNumber)}${menu?.dateRange ? ` (${menu.dateRange})` : ""}`
+    );
 
     for (const day of DAYS) {
       const dayLines: string[] = [];
@@ -292,14 +308,11 @@ export default function App() {
         const count = qty[day][meal] || 0;
         if (count <= 0) continue;
 
-        if (meal === "Low Carb") {
-          dayLines.push(`- ${meal}: ${count}`);
-        } else {
-          const itemText = getRowText(menu, day, meal);
-          // itemText is "name — desc"
-          const nameOnly = itemText.split(" — ")[0];
-          dayLines.push(`- ${meal}: ${count} (${nameOnly})`);
-        }
+        const parts = getMealParts(menu, day, meal);
+        // show name only to keep this readable
+        const nameOnly =
+          meal === "Low Carb" ? "Low Carb" : parts.name || "Menu item";
+        dayLines.push(`- ${meal}: ${count} (${nameOnly})`);
       }
 
       if (dayLines.length > 0) {
@@ -311,12 +324,12 @@ export default function App() {
     const cost = sumWeekCost(qty);
     const meals = sumWeekMeals(qty);
     lines.push(`Subtotal: ${meals} meals · ${formatRand(cost)}`);
-    lines.push(""); // spacer
+    lines.push("");
 
     return lines;
   }
 
-  const summaryText = useMemo(() => {
+  const onScreenSummaryText = useMemo(() => {
     if (!hasAnySelections) return "";
 
     const lines: string[] = [];
@@ -324,21 +337,87 @@ export default function App() {
     lines.push(`Name: ${name?.trim() ? name.trim() : "[name]"}`);
     lines.push("");
 
-    lines.push(...buildSummaryLinesForWeek("A", weekA, qtyA));
+    lines.push(...buildDetailedLinesForWeek(weekA, qtyA));
 
     if (useWeekB && weekB !== weekA) {
-      lines.push(...buildSummaryLinesForWeek("B", weekB, qtyB));
+      lines.push(...buildDetailedLinesForWeek(weekB, qtyB));
     }
 
     lines.push(`TOTAL: ${totalMeals} meals · ${formatRand(totalCost)}`);
+
     if (notes?.trim()) {
       lines.push("");
       lines.push(`Notes: ${notes.trim()}`);
     }
 
-    // Remove trailing empty lines
     while (lines.length > 0 && lines[lines.length - 1] === "") lines.pop();
+    return lines.join("\n");
+  }, [
+    hasAnySelections,
+    name,
+    notes,
+    useWeekB,
+    weekA,
+    weekB,
+    qtyA,
+    qtyB,
+    totalMeals,
+    totalCost,
+    menusByWeek,
+  ]);
 
+  // ---------- WhatsApp summary (SIMPLIFIED) ----------
+  function buildWhatsAppWeekLines(weekNumber: number, qty: QtyByDay) {
+    const menu = getMenuForWeek(weekNumber);
+    const lines: string[] = [];
+
+    lines.push(
+      `Week ${pad2(weekNumber)}${menu?.dateRange ? ` (${menu.dateRange})` : ""}`
+    );
+
+    for (const day of DAYS) {
+      const parts: string[] = [];
+
+      const meat = qty[day].Meat || 0;
+      const veg = qty[day].Veg || 0;
+      const low = qty[day]["Low Carb"] || 0;
+
+      if (meat > 0) parts.push(`x${meat} Meat`);
+      if (veg > 0) parts.push(`x${veg} Veg`);
+      if (low > 0) parts.push(`x${low} Low Carb`);
+
+      if (parts.length > 0) {
+        lines.push(`${DAY_SHORT[day]}: ${parts.join(" ")}`);
+      }
+    }
+
+    return lines;
+  }
+
+  const whatsappText = useMemo(() => {
+    if (!hasAnySelections) return "";
+
+    const lines: string[] = [];
+    lines.push(`Meal Order`);
+    lines.push(`Name: ${name?.trim() ? name.trim() : "[name]"}`);
+    lines.push("");
+
+    lines.push(...buildWhatsAppWeekLines(weekA, qtyA));
+
+    if (useWeekB && weekB !== weekA) {
+      lines.push("");
+      lines.push(...buildWhatsAppWeekLines(weekB, qtyB));
+    }
+
+    lines.push("");
+    lines.push(`TOTAL: ${totalMeals} meals · ${formatRand(totalCost)}`);
+
+    if (notes?.trim()) {
+      lines.push("");
+      lines.push(`Notes: ${notes.trim()}`);
+    }
+
+    while (lines.length > 0 && lines[lines.length - 1] === "") lines.pop();
     return lines.join("\n");
   }, [
     hasAnySelections,
@@ -367,9 +446,9 @@ export default function App() {
       return;
     }
 
-    const encoded = encodeURIComponent(summaryText);
+    // ✅ send simplified WhatsApp text (not the detailed on-screen summary)
+    const encoded = encodeURIComponent(whatsappText);
 
-    // Web vs Mobile
     const url =
       Platform.OS === "web"
         ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`
@@ -377,7 +456,6 @@ export default function App() {
 
     const can = await Linking.canOpenURL(url);
     if (!can) {
-      // fallback for mobile if whatsapp:// isn't available
       const fallback = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
       const can2 = await Linking.canOpenURL(fallback);
       if (!can2) {
@@ -437,24 +515,59 @@ export default function App() {
   const MealRow = ({
     which,
     menu,
+    weekNumber,
     day,
     meal,
     qty,
   }: {
     which: "A" | "B";
     menu: WeeklyMenu | null;
+    weekNumber: number;
     day: DayName;
     meal: MealType;
     qty: number;
   }) => {
-    const label = `${meal}:`;
-    const text = getRowText(menu, day, meal);
+    const parts = getMealParts(menu, day, meal);
+    const key = `${which}-${weekNumber}-${day}-${meal}`;
+    const isExpanded = !!expandedDesc[key];
+
+    const title =
+      meal === "Low Carb" ? "Low Carb" : parts.name || "Menu item coming soon.";
+    const desc = parts.description || (meal === "Low Carb" ? LOW_CARB_NOTE : "");
+
+    // ✅ default collapsed to reduce scrolling
+    const shouldShowMoreToggle = !!desc && desc.length > 80;
 
     return (
       <View style={[styles.itemRow, isNarrow && styles.itemRowNarrow]}>
         <View style={[styles.itemTextCol, isNarrow && styles.itemTextColNarrow]}>
-          <Text style={styles.mealLabel}>{label}</Text>
-          <Text style={styles.mealText}>{text}</Text>
+          <Text style={styles.mealLabel}>{meal}:</Text>
+
+          <Text style={styles.mealName}>{title}</Text>
+
+          {!!desc && (
+            <>
+              <Text
+                style={styles.mealDesc}
+                numberOfLines={isExpanded ? 0 : 2}
+              >
+                {desc}
+              </Text>
+
+              {shouldShowMoreToggle && (
+                <Pressable
+                  onPress={() =>
+                    setExpandedDesc((prev) => ({ ...prev, [key]: !isExpanded }))
+                  }
+                  style={styles.moreBtn}
+                >
+                  <Text style={styles.moreBtnText}>
+                    {isExpanded ? "Less" : "More"}
+                  </Text>
+                </Pressable>
+              )}
+            </>
+          )}
         </View>
 
         <View style={[styles.stepperCol, isNarrow && styles.stepperColNarrow]}>
@@ -467,40 +580,57 @@ export default function App() {
   const DayCard = ({
     which,
     menu,
+    weekNumber,
     day,
     quantities,
   }: {
     which: "A" | "B";
     menu: WeeklyMenu | null;
+    weekNumber: number;
     day: DayName;
     quantities: QtyByDay;
-  }) => (
-    <View style={styles.dayCard}>
-      <Text style={styles.dayTitle}>{day}</Text>
+  }) => {
+    const dayTotal =
+      (quantities[day].Meat || 0) +
+      (quantities[day].Veg || 0) +
+      (quantities[day]["Low Carb"] || 0);
 
-      <MealRow
-        which={which}
-        menu={menu}
-        day={day}
-        meal="Meat"
-        qty={quantities[day].Meat}
-      />
-      <MealRow
-        which={which}
-        menu={menu}
-        day={day}
-        meal="Veg"
-        qty={quantities[day].Veg}
-      />
-      <MealRow
-        which={which}
-        menu={menu}
-        day={day}
-        meal="Low Carb"
-        qty={quantities[day]["Low Carb"]}
-      />
-    </View>
-  );
+    return (
+      <View style={styles.dayCard}>
+        <View style={styles.dayHeaderRow}>
+          <Text style={styles.dayTitle}>{day}</Text>
+          <View style={styles.dayPills}>
+            <Text style={styles.dayPillText}>Selected: {dayTotal}</Text>
+          </View>
+        </View>
+
+        <MealRow
+          which={which}
+          menu={menu}
+          weekNumber={weekNumber}
+          day={day}
+          meal="Meat"
+          qty={quantities[day].Meat}
+        />
+        <MealRow
+          which={which}
+          menu={menu}
+          weekNumber={weekNumber}
+          day={day}
+          meal="Veg"
+          qty={quantities[day].Veg}
+        />
+        <MealRow
+          which={which}
+          menu={menu}
+          weekNumber={weekNumber}
+          day={day}
+          meal="Low Carb"
+          qty={quantities[day]["Low Carb"]}
+        />
+      </View>
+    );
+  };
 
   const WeekBlock = ({
     which,
@@ -532,6 +662,7 @@ export default function App() {
             key={`${which}-${weekNumber}-${day}`}
             which={which}
             menu={menu}
+            weekNumber={weekNumber}
             day={day}
             quantities={quantities}
           />
@@ -585,22 +716,24 @@ export default function App() {
             </View>
           </View>
 
-          <View style={styles.toggleRow}>
+          {/* ✅ SWITCH toggle (Yes ↔ No) */}
+          <View style={styles.switchRow}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.fieldLabel}>Add Week B</Text>
-              <Text style={styles.helpText}>Select “Yes” for a Biweekly Order</Text>
-              <Text style={styles.helpText}>Select “No” for a Weekly Order Only</Text>
+              <Text style={styles.fieldLabel}>Biweekly (Add Week B)</Text>
+              <Text style={styles.helpText}>
+                Switch ON = Biweekly order · OFF = Weekly only
+              </Text>
             </View>
 
-            <Pressable
-              style={[
-                styles.toggleBtn,
-                useWeekB ? styles.toggleBtnOn : styles.toggleBtnOff,
-              ]}
-              onPress={() => setUseWeekB((v) => !v)}
-            >
-              <Text style={styles.toggleBtnText}>{useWeekB ? "Yes" : "No"}</Text>
-            </Pressable>
+            <View style={styles.switchRight}>
+              <Text style={styles.switchLabel}>{useWeekB ? "Yes" : "No"}</Text>
+              <Switch
+                value={useWeekB}
+                onValueChange={setUseWeekB}
+                trackColor={{ false: "#253a55", true: "#1f6b3a" }}
+                thumbColor={useWeekB ? "#e9fff1" : "#f3f6fb"}
+              />
+            </View>
           </View>
 
           {useWeekB && (
@@ -671,12 +804,18 @@ export default function App() {
           ) : (
             <>
               <View style={styles.summaryBox}>
-                <Text style={styles.summaryText}>{summaryText}</Text>
+                <Text style={styles.summaryText}>{onScreenSummaryText}</Text>
               </View>
 
               <View style={styles.summaryTotals}>
                 <Text style={styles.totalText}>
                   Total meals: {totalMeals} · Total cost: {formatRand(totalCost)}
+                </Text>
+              </View>
+
+              <View style={styles.whatsHint}>
+                <Text style={styles.whatsHintText}>
+                  WhatsApp message will be simplified (Mon: x2 Meat ...).
                 </Text>
               </View>
 
@@ -796,7 +935,8 @@ const styles = StyleSheet.create({
   },
   smallBtnText: { color: "#f3f6fb", fontSize: 18, fontWeight: "900" },
 
-  toggleRow: {
+  // ✅ Switch row for biweekly
+  switchRow: {
     flexDirection: "row",
     gap: 12,
     alignItems: "center",
@@ -805,18 +945,12 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#182536",
   },
-  toggleBtn: {
-    minWidth: 70,
-    height: 36,
-    borderRadius: 12,
+  switchRight: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 14,
-    borderWidth: 1,
+    gap: 10,
   },
-  toggleBtnOn: { backgroundColor: "#0f2a1a", borderColor: "#1f6b3a" },
-  toggleBtnOff: { backgroundColor: "#101826", borderColor: "#253a55" },
-  toggleBtnText: { color: "#f3f6fb", fontSize: 13, fontWeight: "800" },
+  switchLabel: { color: "#f3f6fb", fontSize: 13, fontWeight: "900" },
 
   clearBtn: {
     marginTop: 14,
@@ -856,12 +990,27 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 10,
   },
+  dayHeaderRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 10,
+    gap: 10,
+  },
   dayTitle: {
     color: "#f3f6fb",
     fontSize: 15,
     fontWeight: "900",
-    marginBottom: 10,
   },
+  dayPills: {
+    backgroundColor: "#101826",
+    borderWidth: 1,
+    borderColor: "#20324a",
+    borderRadius: 999,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+  },
+  dayPillText: { color: "#cfe1ff", fontWeight: "800", fontSize: 12 },
 
   itemRow: {
     flexDirection: "row",
@@ -879,12 +1028,20 @@ const styles = StyleSheet.create({
   stepperColNarrow: { width: "100%", alignItems: "flex-end", marginTop: 8 },
 
   mealLabel: { color: "#7fb0ff", fontWeight: "900", marginBottom: 4 },
-  mealText: {
+  mealName: {
     color: "#f3f6fb",
     fontSize: 13,
-    fontWeight: "600",
-    lineHeight: 18,
+    fontWeight: "800",
+    marginBottom: 2,
   },
+  mealDesc: {
+    color: "#d8e3f7",
+    fontSize: 12,
+    fontWeight: "600",
+    lineHeight: 17,
+  },
+  moreBtn: { marginTop: 6, alignSelf: "flex-start" },
+  moreBtnText: { color: "#7fb0ff", fontWeight: "900", fontSize: 12 },
 
   stepperRow: {
     flexDirection: "row",
@@ -959,6 +1116,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   totalText: { color: "#e7efff", fontWeight: "800" },
+
+  whatsHint: {
+    marginTop: 10,
+    backgroundColor: "#0b111b",
+    borderWidth: 1,
+    borderColor: "#1a2a3d",
+    borderRadius: 12,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  },
+  whatsHintText: { color: "#b8c9e6", fontWeight: "700", fontSize: 12 },
+
   whatsBtn: {
     marginTop: 10,
     backgroundColor: "#0f2a1a",
