@@ -42,6 +42,12 @@ type MenusByWeek = Record<string, WeeklyMenu>;
 const DAYS: DayName[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const MEALS: MealType[] = ["Meat", "Veg", "Low Carb"];
 
+const MEAL_COLORS: Record<MealType, string> = {
+  Meat: "#ff5a5a",       // red
+  Veg: "#3fd27f",        // green
+  "Low Carb": "#9b6bff", // purple
+};
+
 const DAY_SHORT: Record<DayName, string> = {
   Monday: "Mon",
   Tuesday: "Tue",
@@ -481,22 +487,29 @@ export default function App() {
   );
 
   const QtyStepper = ({
-    which,
-    day,
-    meal,
-    value,
-  }: {
-    which: "A" | "B";
-    day: DayName;
-    meal: MealType;
-    value: number;
-  }) => (
+  which,
+  day,
+  meal,
+  value,
+}: {
+  which: "A" | "B";
+  day: DayName;
+  meal: MealType;
+  value: number;
+}) => {
+  const color = MEAL_COLORS[meal];
+
+  return (
     <View style={[styles.stepperRow, isNarrow && styles.stepperRowNarrow]}>
       <Pressable
-        style={[styles.qtyBtn, isNarrow && styles.qtyBtnNarrow]}
+        style={[
+          styles.qtyBtn,
+          isNarrow && styles.qtyBtnNarrow,
+          { borderColor: color, backgroundColor: `${color}22` },
+        ]}
         onPress={() => changeQty(which, day, meal, -1)}
       >
-        <Text style={styles.qtyBtnText}>−</Text>
+        <Text style={[styles.qtyBtnText, { color }]}>−</Text>
       </Pressable>
 
       <Text style={[styles.qtyText, isNarrow && styles.qtyTextNarrow]}>
@@ -504,13 +517,19 @@ export default function App() {
       </Text>
 
       <Pressable
-        style={[styles.qtyBtn, isNarrow && styles.qtyBtnNarrow]}
+        style={[
+          styles.qtyBtn,
+          isNarrow && styles.qtyBtnNarrow,
+          { borderColor: color, backgroundColor: `${color}22` },
+        ]}
         onPress={() => changeQty(which, day, meal, +1)}
       >
-        <Text style={styles.qtyBtnText}>+</Text>
+        <Text style={[styles.qtyBtnText, { color }]}>+</Text>
       </Pressable>
     </View>
   );
+};
+
 
   const MealRow = ({
     which,
@@ -541,7 +560,10 @@ export default function App() {
     return (
       <View style={[styles.itemRow, isNarrow && styles.itemRowNarrow]}>
         <View style={[styles.itemTextCol, isNarrow && styles.itemTextColNarrow]}>
-          <Text style={styles.mealLabel}>{meal}:</Text>
+          <Text style={[styles.mealLabel, { color: MEAL_COLORS[meal] }]}>
+  {meal}:
+</Text>
+
 
           <Text style={styles.mealName}>{title}</Text>
 
@@ -1027,7 +1049,7 @@ const styles = StyleSheet.create({
   stepperCol: { width: 140, alignItems: "flex-end" },
   stepperColNarrow: { width: "100%", alignItems: "flex-end", marginTop: 8 },
 
-  mealLabel: { color: "#7fb0ff", fontWeight: "900", marginBottom: 4 },
+  mealLabel: { fontWeight: "900", marginBottom: 4 },
   mealName: {
     color: "#f3f6fb",
     fontSize: 13,
