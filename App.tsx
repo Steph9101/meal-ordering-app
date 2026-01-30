@@ -716,9 +716,8 @@ export default function App() {
           />
 
           <Text style={[styles.fieldLabel, { marginTop: 14 }]}>
-            Select Week A (1–48)
-          </Text>
-
+  Select Week Number
+</Text>
           <View style={styles.weekPickerRow}>
             <Text style={styles.weekPickerValue}>{pad2(weekA)}</Text>
 
@@ -761,8 +760,8 @@ export default function App() {
           {useWeekB && (
             <>
               <Text style={[styles.fieldLabel, { marginTop: 14 }]}>
-                Select Week B (1–48)
-              </Text>
+  Select Week Number
+</Text>
 
               <View style={styles.weekPickerRow}>
                 <Text style={styles.weekPickerValue}>{pad2(weekB)}</Text>
