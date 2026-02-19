@@ -1,115 +1,115 @@
 {
-  "5": {
-    "title": "Week 05 Menu",
-    "dateRange": "09–13 February",
+  "7": {
+    "title": "Week 07 Menu",
+    "dateRange": "23 February – 27 February",
     "price": "R90.00",
     "days": {
       "Monday": {
         "Meat": {
-          "name": "Spaghetti Bolognese",
-          "description": "Topped with mature cheddar, served with a freshly baked brioche roll."
+          "name": "Braised meatballs",
+          "description": "Served in a rich Neapolitan sauce over crushed butter potatoes with steamed veg, cheese & corn puffs."
         },
         "Veg": {
-          "name": "Veg Spaghetti Bolognese",
-          "description": "Topped with mature cheddar, served with a freshly baked brioche roll."
+          "name": "Braised vegballs",
+          "description": "Served in a rich Neapolitan sauce over crushed butter potatoes with steamed veg, cheese & corn puffs."
         }
       },
       "Tuesday": {
         "Meat": {
-          "name": "Braised pork with peanut satay",
-          "description": "Topped with peanut satay sauce, sautéed vegetables, and steamed rice, finished with crushed peanuts & fresh coriander."
+          "name": "Fire-grilled teriyaki chicken breasts",
+          "description": "Served with sautéed veg, egg noodles & crispy fried okra."
         },
         "Veg": {
-          "name": "Seared paneer with peanut satay",
-          "description": "Topped with peanut satay sauce, sautéed vegetables, and steamed rice, finished with crushed peanuts & fresh coriander."
+          "name": "Fire-grilled teriyaki cauliflower & zucchini",
+          "description": "Served with sautéed veg, egg noodles & crispy fried okra."
         }
       },
       "Wednesday": {
         "Meat": {
-          "name": "Roast beef",
-          "description": "Covered in sherry gravy, served with creamy mash, steamed green beans, and buttermilk-fried onion rings."
+          "name": "Slow-roasted garlic & thyme pork",
+          "description": "Served with fried polenta, onion gravy, pumpkin & butternut purée, and creamed spinach."
         },
         "Veg": {
-          "name": "Stuffed gem squash",
-          "description": "Covered in sherry gravy, served with creamy mash, steamed green beans, and buttermilk-fried onion rings."
+          "name": "Veg stack",
+          "description": "Served with fried polenta, onion gravy, pumpkin & butternut purée, and creamed spinach."
         }
       },
       "Thursday": {
         "Meat": {
-          "name": "Sweetcorn, spinach & feta–stuffed chicken breasts",
-          "description": "Served with Mediterranean couscous, vegetables, and sweet potato crisps."
+          "name": "Seared beef strips in a whiskey pepper sauce",
+          "description": "Served with steamed rice, veg of the day & crispy potato hay."
         },
         "Veg": {
-          "name": "Sweetcorn, spinach & feta–stuffed peppers",
-          "description": "Served with Mediterranean couscous, vegetables, and sweet potato crisps."
+          "name": "Seared paneer in a whiskey pepper sauce",
+          "description": "Served with steamed rice, veg of the day & crispy potato hay."
         }
       },
       "Friday": {
         "Meat": {
-          "name": "Closed",
-          "description": "No meal service."
+          "name": "Buttermilk fried chicken thighs",
+          "description": "Served with handcut chips, coleslaw & garlic aioli."
         },
         "Veg": {
-          "name": "Closed",
-          "description": "No meal service."
+          "name": "Buttermilk fried brinjal",
+          "description": "Served with handcut chips, coleslaw & garlic aioli."
         }
       }
     }
   },
 
-  "6": {
-    "title": "Week 06 Menu",
-    "dateRange": "16–20 February",
+  "8": {
+    "title": "Week 08 Menu",
+    "dateRange": "02 March – 06 March",
     "price": "R90.00",
     "days": {
       "Monday": {
         "Meat": {
-          "name": "Cumin & thyme–seared pork strips",
-          "description": "Served in a coconut lemongrass sauce with pearl barley & roasted vegetables."
+          "name": "Chicken & broccoli in a creamy sauce",
+          "description": "Served over macaroni with handmade cheese rolls."
         },
         "Veg": {
-          "name": "Cumin & thyme–seared paneer",
-          "description": "Served in a coconut lemongrass sauce with pearl barley & roasted vegetables."
+          "name": "Exotic mushroom & broccoli in a creamy sauce",
+          "description": "Served over macaroni with handmade cheese rolls."
         }
       },
       "Tuesday": {
         "Meat": {
-          "name": "Lemon-paprika roasted chicken",
-          "description": "Served with baked sweet potato, roasted butternut, and toast points."
+          "name": "Pulled chipotle pork quesadilla",
+          "description": "With peppers, onions & cheese, served with fried dual potato chunks."
         },
         "Veg": {
-          "name": "Melanzane",
-          "description": "Served with baked sweet potato, roasted butternut, and toast points."
+          "name": "Pulled chipotle veg quesadilla",
+          "description": "With peppers, onions & cheese, served with fried dual potato chunks."
         }
       },
       "Wednesday": {
         "Meat": {
-          "name": "Chinese-style roast pork belly",
-          "description": "Served with spiced pumpkin sauce, baked baby potatoes, and vegetables of the day."
+          "name": "Oxtail & brinjal lasagna",
+          "description": "Layered with mature cheddar & served with roasted veg."
         },
         "Veg": {
-          "name": "Vegetarian spring rolls",
-          "description": "Served with spiced pumpkin sauce, baked baby potatoes, and vegetables of the day."
+          "name": "Sugar snap peas & brinjal lasagna",
+          "description": "Layered with mature cheddar & served with roasted veg."
         }
       },
       "Thursday": {
         "Meat": {
-          "name": "Cheesy baked cottage pie",
-          "description": "Served with peas and sweetcorn."
+          "name": "Roast chicken pieces",
+          "description": "Served with herbed bulgur wheat & fried tortillas, accompanied by a side salad with balsamic vinaigrette."
         },
         "Veg": {
-          "name": "Cheesy baked veg cottage pie",
-          "description": "Served with peas and sweetcorn."
+          "name": "Bakes stuffed butternut",
+          "description": "Served with herbed bulgur wheat & fried tortillas, accompanied by a side salad with balsamic vinaigrette."
         }
       },
       "Friday": {
         "Meat": {
-          "name": "Bacon & mushroom Alfredo",
-          "description": "Served over linguini with garlic flatbread."
+          "name": "Loaded cheese griller roll",
+          "description": "Served with potato salad."
         },
         "Veg": {
-          "name": "Asparagus & mushroom Alfredo",
-          "description": "Served over linguini with garlic flatbread."
+          "name": "Loaded cauliflower falafel roll",
+          "description": "Served with potato salad."
         }
       }
     }
