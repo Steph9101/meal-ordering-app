@@ -1,114 +1,115 @@
 {
-  "9": {
-    "title": "Week 09 Menu",
-    "dateRange": "09 March – 13 March",
+  "11": {
+    "title": "Week 11 Menu",
+    "dateRange": "23 March – 27 March",
     "price": "R90.00",
     "days": {
       "Monday": {
         "Meat": {
-          "name": "Crumbed pork strips",
-          "description": "With cheese & onion sauce served with steamed rice and vegetable fritters."
+          "name": "Chicken à la King",
+          "description": "Served with steamed rice, roasted cinnamon butternut, and toasted pumpkin seeds."
         },
         "Veg": {
-          "name": "Crumbed wild mushrooms",
-          "description": "With cheese & onion sauce served with steamed rice and vegetable fritters."
+          "name": "Veggie à la King",
+          "description": "Served with steamed rice, roasted cinnamon butternut, and toasted pumpkin seeds."
         }
       },
       "Tuesday": {
         "Meat": {
-          "name": "Sundried tomato & basil meatloaf",
-          "description": "Covered in gravy, served with steamed veg and couscous topped with fried kale."
+          "name": "Baked spaghetti frittata",
+          "description": "Filled with cheese, sun-dried tomato, and salami, topped with béchamel sauce, served with meatballs and steamed broccoli."
         },
         "Veg": {
-          "name": "Sundried tomato & basil vegloaf",
-          "description": "Covered in gravy, served with steamed veg and couscous topped with fried kale."
+          "name": "Baked spaghetti frittata",
+          "description": "Filled with cheese, sun-dried tomato, and mushroom, topped with béchamel sauce, served with falafel and steamed broccoli."
         }
       },
       "Wednesday": {
         "Meat": {
-          "name": "Bangers & mash",
-          "description": "With red wine onion gravy, minted peas and buttermilk fried onion rings."
+          "name": "Beef roll",
+          "description": "Stuffed with thyme, garlic, and red pepper flakes, topped with onion gravy, served with creamy mash and veg of the day."
         },
         "Veg": {
-          "name": "Cauliflower falafel & mash",
-          "description": "With red wine onion gravy, minted peas and buttermilk fried onion rings."
+          "name": "Veg roll",
+          "description": "Stuffed with thyme, garlic, and red pepper flakes, topped with onion gravy, served with creamy mash and veg of the day."
         }
       },
       "Thursday": {
         "Meat": {
-          "name": "Garlic & honey marinated grilled chicken breast",
-          "description": "Served with papaya & coriander relish, pearl barley pilaf and spinach bhaji."
+          "name": "Chicken, white wine, mushroom & rosemary pot pie",
+          "description": "Served with a side of roasted veg."
         },
         "Veg": {
-          "name": "Garlic & honey marinated grilled paneer",
-          "description": "Served with papaya & coriander relish, pearl barley pilaf and spinach bhaji."
+          "name": "Cauliflower, lentil, white wine, mushroom & rosemary pot pie",
+          "description": "Served with a side of roasted veg."
         }
       },
       "Friday": {
         "Meat": {
-          "name": "Spaghetti bolognaise",
-          "description": "With mature cheddar and garlic sesame puffs."
+          "name": "Crumbed pork strips",
+          "description": "Served with honey mustard sauce, potato wedges, and steamed veg."
         },
         "Veg": {
-          "name": "Spaghetti veg bolognaise",
-          "description": "With mature cheddar and garlic sesame puffs."
+          "name": "Crumbed haloumi strips",
+          "description": "Served with honey mustard sauce, potato wedges, and steamed veg."
         }
       }
     }
   },
-  "10": {
-    "title": "Week 10 Menu",
-    "dateRange": "16 March – 20 March",
+
+  "12": {
+    "title": "Week 12 Menu",
+    "dateRange": "30 March – 03 April",
     "price": "R90.00",
     "days": {
       "Monday": {
         "Meat": {
-          "name": "Beef bits, chorizo & peppers",
-          "description": "In a creamy sauce over penne served with cheese and corn fried tortillas."
+          "name": "Ham and mushroom Alfredo",
+          "description": "Served over linguine with a freshly made cheese roll."
         },
         "Veg": {
-          "name": "Mushroom, baby butternut & peppers",
-          "description": "In a creamy sauce over penne served with cheese and corn fried tortillas."
+          "name": "Asparagus and mushroom Alfredo",
+          "description": "Served over linguine with a freshly made cheese roll."
         }
       },
       "Tuesday": {
         "Meat": {
-          "name": "Butter chicken",
-          "description": "Topped with toasted almonds and coriander served with steamed rice and vegetables."
+          "name": "Cheesy cottage pie",
+          "description": "Served with peas and sweetcorn, with fried potato skins."
         },
         "Veg": {
-          "name": "Butter cauliflower & zucchini",
-          "description": "Topped with toasted almonds and coriander served with steamed rice and vegetables."
+          "name": "Cheesy veg cottage pie",
+          "description": "Served with peas and sweetcorn, with fried potato skins."
         }
       },
       "Wednesday": {
         "Meat": {
-          "name": "Tikka fire roast pork neck",
-          "description": "With lime mint yogurt sauce served with roast potato wedges, green beans and glazed carrots."
+          "name": "Roasted chicken pieces",
+          "description": "With smoked paprika, parsley, and lemon, served with a cream cheese, bacon, and spring onion stuffed baked potato, and veg."
         },
         "Veg": {
-          "name": "Stuffed fire roast peppers",
-          "description": "With lime mint yogurt sauce served with roast potato wedges, green beans and glazed carrots."
+          "name": "Veg stack",
+          "description": "Served with a cream cheese, sweetcorn, and spring onion stuffed baked potato, and veg."
         }
       },
       "Thursday": {
         "Meat": {
-          "name": "Beef gyro",
-          "description": "With fresh red onion and tomato served with tzatziki and hand cut fries."
+          "name": "Coconut lemongrass beef and potato curry",
+          "description": "Served with steamed rice, vegetables, and poppadoms."
         },
         "Veg": {
-          "name": "Grilled halloumi gyro",
-          "description": "With fresh red onion and tomato served with tzatziki and hand cut fries."
+          "name": "Coconut lemongrass paneer and potato curry",
+          "description": "Served with steamed rice, vegetables, and poppadoms."
         }
       },
       "Friday": {
         "Meat": {
-          "name": "Pan fried hake fish cakes",
-          "description": "With sushi rice bowl, steamed edamame beans, boiled egg, miso mayo and toasted sesame seeds."
+          "name": "Public Holiday",
+          "description": "No meal service."
         },
         "Veg": {
-          "name": "Pan fried veg cakes",
-          "description": "With sushi rice bowl, steamed edamame beans, boiled egg, miso mayo and toasted sesame seeds."
+          "name": "Public Holiday",
+          "description": "No meal service."
         }
       }
     }
