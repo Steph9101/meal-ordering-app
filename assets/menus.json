@@ -1,115 +1,105 @@
 {
-  "11": {
-    "title": "Week 11 Menu",
-    "dateRange": "23 March – 27 March",
-    "price": "R90.00",
+  "13": {
+    "title": "Week 13 Menu",
+    "dateRange": "06–10 April",
     "days": {
       "Monday": {
-        "Meat": {
-          "name": "Chicken à la King",
-          "description": "Served with steamed rice, roasted cinnamon butternut, and toasted pumpkin seeds."
-        },
-        "Veg": {
-          "name": "Veggie à la King",
-          "description": "Served with steamed rice, roasted cinnamon butternut, and toasted pumpkin seeds."
-        }
+        "note": "Public Holiday"
       },
       "Tuesday": {
         "Meat": {
-          "name": "Baked spaghetti frittata",
-          "description": "Filled with cheese, sun-dried tomato, and salami, topped with béchamel sauce, served with meatballs and steamed broccoli."
+          "name": "Cream cheese, sweet corn & spring onion stuffed chicken breast",
+          "description": "Served with Neapolitan sauce, crushed potatoes & veg."
         },
         "Veg": {
-          "name": "Baked spaghetti frittata",
-          "description": "Filled with cheese, sun-dried tomato, and mushroom, topped with béchamel sauce, served with falafel and steamed broccoli."
+          "name": "Cream cheese, sweet corn & spring onion stuffed peppers",
+          "description": "Served with Neapolitan sauce, crushed potatoes & veg."
         }
       },
       "Wednesday": {
         "Meat": {
-          "name": "Beef roll",
-          "description": "Stuffed with thyme, garlic, and red pepper flakes, topped with onion gravy, served with creamy mash and veg of the day."
+          "name": "Roasted pork belly & crackling",
+          "description": "With apple cranberry sauce, fried polenta, green beans & butter carrots."
         },
         "Veg": {
-          "name": "Veg roll",
-          "description": "Stuffed with thyme, garlic, and red pepper flakes, topped with onion gravy, served with creamy mash and veg of the day."
+          "name": "Roasted cauliflower steak",
+          "description": "With apple cranberry sauce, fried polenta, green beans & butter carrots."
         }
       },
       "Thursday": {
         "Meat": {
-          "name": "Chicken, white wine, mushroom & rosemary pot pie",
-          "description": "Served with a side of roasted veg."
+          "name": "Pulled chicken lasagne",
+          "description": "Topped with mature cheddar & parsley, served with homemade bread rolls."
         },
         "Veg": {
-          "name": "Cauliflower, lentil, white wine, mushroom & rosemary pot pie",
-          "description": "Served with a side of roasted veg."
+          "name": "Grilled veg & lentil lasagne",
+          "description": "Topped with mature cheddar & parsley, served with homemade bread rolls."
         }
       },
       "Friday": {
         "Meat": {
-          "name": "Crumbed pork strips",
-          "description": "Served with honey mustard sauce, potato wedges, and steamed veg."
+          "name": "Braised BBQ chicken pieces",
+          "description": "Served with potato salad, spinach bhaji & basil salsa."
         },
         "Veg": {
-          "name": "Crumbed haloumi strips",
-          "description": "Served with honey mustard sauce, potato wedges, and steamed veg."
+          "name": "Braised halloumi pieces",
+          "description": "Served with potato salad, spinach bhaji & basil salsa."
         }
       }
     }
   },
-
-  "12": {
-    "title": "Week 12 Menu",
-    "dateRange": "30 March – 03 April",
-    "price": "R90.00",
+  "14": {
+    "title": "Week 14 Menu",
+    "dateRange": "13–17 April",
     "days": {
       "Monday": {
         "Meat": {
-          "name": "Ham and mushroom Alfredo",
-          "description": "Served over linguine with a freshly made cheese roll."
+          "name": "Mac & cheese with ham, mushroom & peas",
+          "description": "Topped with sliced tomato & cheese, baked and served with crispy tortillas."
         },
         "Veg": {
-          "name": "Asparagus and mushroom Alfredo",
-          "description": "Served over linguine with a freshly made cheese roll."
+          "name": "Mac & cheese with mushroom & peas",
+          "description": "Topped with sliced tomato & cheese, baked and served with crispy tortillas."
         }
       },
       "Tuesday": {
         "Meat": {
-          "name": "Cheesy cottage pie",
-          "description": "Served with peas and sweetcorn, with fried potato skins."
+          "name": "Bangers & mash",
+          "description": "With stout sauce, grilled veg & buttermilk onion rings."
         },
         "Veg": {
-          "name": "Cheesy veg cottage pie",
-          "description": "Served with peas and sweetcorn, with fried potato skins."
+          "name": "Cauliflower falafel & mash",
+          "description": "With stout sauce, grilled veg & buttermilk onion rings."
         }
       },
       "Wednesday": {
         "Meat": {
-          "name": "Roasted chicken pieces",
-          "description": "With smoked paprika, parsley, and lemon, served with a cream cheese, bacon, and spring onion stuffed baked potato, and veg."
+          "name": "Chicken roll",
+          "description": "Covered with onion rosemary gravy, served with tomato rice, veg of the day & crispy potato skins."
         },
         "Veg": {
-          "name": "Veg stack",
-          "description": "Served with a cream cheese, sweetcorn, and spring onion stuffed baked potato, and veg."
+          "name": "Veg roll",
+          "description": "Covered with onion rosemary gravy, served with tomato rice, veg of the day & crispy potato skins."
         }
       },
       "Thursday": {
         "Meat": {
-          "name": "Coconut lemongrass beef and potato curry",
-          "description": "Served with steamed rice, vegetables, and poppadoms."
+          "name": "Homemade lemon & herb chicken schnitzel",
+          "description": "With sherry cream sauce, served with red pepper bulgur wheat & veggies."
         },
         "Veg": {
-          "name": "Coconut lemongrass paneer and potato curry",
-          "description": "Served with steamed rice, vegetables, and poppadoms."
+          "name": "Homemade lemon & herb veg schnitzel",
+          "description": "With sherry cream sauce, served with red pepper bulgur wheat & veggies."
         }
       },
       "Friday": {
         "Meat": {
-          "name": "Public Holiday",
-          "description": "No meal service."
+          "name": "Pulled beef quesadilla",
+          "description": "With onion & peppers, cheddar, hand-cut fries & homemade aioli."
         },
         "Veg": {
-          "name": "Public Holiday",
-          "description": "No meal service."
+          "name": "Roast veg quesadilla",
+          "description": "With onion & peppers, cheddar, hand-cut fries & homemade aioli."
         }
       }
     }
